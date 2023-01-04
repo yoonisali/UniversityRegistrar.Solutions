@@ -1,0 +1,29 @@
+@{
+  Layout = "_Layout";
+}
+
+@model UniversityRegistrar.Models.Course;
+@using UniversityRegistrar.Models;
+
+
+<h3>Course Details:</h3>
+<hr />
+<h4>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h4>
+
+
+@if(@Model.Students.Count == 0)
+{
+  <p>This course has no students enrolled.</p>
+}
+else 
+{
+  @foreach (Student student in Model.Students)
+  {
+  <h5>Students enrolled in this course:</h5>
+  <ul>
+    <li>@student.Name</li>
+  </ul>
+  }
+}
+
+
