@@ -1,6 +1,7 @@
 @{
   Layout = "_Layout";
 }
+@await Html.PartialAsync("Footer")
 
 @using UniversityRegistrar.Models
 
@@ -21,4 +22,3 @@
 
 <p>@Html.ActionLink("Add a new course!", "Create")</p>
 <p>@Html.ActionLink("Add a new student!", "Create", "Students")</p>
-<p>@Html.ActionLink("Home!", "Index", "Home")</p>

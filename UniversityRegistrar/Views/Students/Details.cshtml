@@ -1,0 +1,37 @@
+@{
+  Layout = "_Layout";
+}
+@await Html.PartialAsync("Footer")
+
+@using UniversityRegistrar.Models
+@model UniversityRegistrar.Models.Student
+
+<h2>Student Details</h2>
+<hr>
+<h4><strong>Name: </strong>@Html.DisplayFor(model => model.Name)</h4>
+<h4><strong>Enrollment Date: </strong>@Html.DisplayFor(model => model.EnrollmentDate)</h4>
+<hr>
+
+@if (@Model.JoinEntities.Count == 0)
+{
+  <p>This student does not have any courses yet!</p>
+}
+else
+{
+  <h4>This student is enrolled in the following courses:</h4>
+  <ul>
+  @foreach (Enrollment join in Model.JoinEntities)
+    {
+      <li>
+        Course: @join.Course.Name
+        @using (Html.BeginForm("DeleteJoin", "Items"))
+        {
+          @Html.Hidden("joinId", @join.EnrollmentId)
+          <input type="submit" value="Delete" class="btn btn-danger" style="border-radius: 30px;" />
+        }
+      </li>
+    }
+  </ul>
+}
+
+<p>@Html.ActionLink("Add a course", "AddCourse", new { id = Model.StudentId })</p>
