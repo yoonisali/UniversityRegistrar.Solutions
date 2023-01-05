@@ -87,5 +87,39 @@ namespace UniversityRegistrar.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = course.CourseId });
     }
+
+    public ActionResult DeleteMajorCourse(int id)
+    {
+      MajorCourse joinEntry = _db.MajorCourses.FirstOrDefault(entry => entry.MajorCourseId == id);
+      Major thisMajor = _db.Majors.FirstOrDefault(entry => entry.MajorId == joinEntry.MajorId);
+      ViewBag.Major = thisMajor.Name;
+      return View(joinEntry);
+    }
+
+    [HttpPost, ActionName("DeleteMajorCourse")]
+    public ActionResult DeleteMajorCourseConfirm(int id)
+    {
+      MajorCourse joinEntry = _db.MajorCourses.FirstOrDefault(entry => entry.MajorCourseId == id);
+      _db.MajorCourses.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.CourseId });
+    }
+
+    public ActionResult DeleteEnrollment(int id)
+    {
+      Enrollment joinEntry = _db.Enrollments.FirstOrDefault(entry => entry.EnrollmentId == id);
+      Student thisStudent = _db.Students.FirstOrDefault(entry => entry.StudentId == joinEntry.StudentId);
+      ViewBag.Student = thisStudent.Name;
+      return View(joinEntry);
+    }
+
+    [HttpPost, ActionName("DeleteEnrollment")]
+    public ActionResult DeleteEnrollmentConfirm(int id)
+    {
+      Enrollment joinEntry = _db.Enrollments.FirstOrDefault(entry => entry.EnrollmentId == id);
+      _db.Enrollments.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.CourseId });
+    }
   }
 }

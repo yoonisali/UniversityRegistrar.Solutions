@@ -125,7 +125,7 @@ namespace UniversityRegistrar.Controllers
       return RedirectToAction("Details", new { id = joinEntry.StudentId });
     }
     //------------------------------------------------------------------------------------------------------
-    public ActionResult DeleteCourseStudent(int id)
+    public ActionResult DeleteEnrollment(int id)
     {
       Enrollment joinEntry = _db.Enrollments.FirstOrDefault(entry => entry.EnrollmentId == id);
       Course thisCourse = _db.Courses.FirstOrDefault(entry => entry.CourseId == joinEntry.CourseId);
@@ -133,8 +133,8 @@ namespace UniversityRegistrar.Controllers
       return View(joinEntry);
     }
 
-    [HttpPost, ActionName("DeleteCourseStudent")]
-    public ActionResult DeleteCourseStudentConfirm(int id)
+    [HttpPost, ActionName("DeleteEnrollment")]
+    public ActionResult DeleteEnrollmentConfirm(int id)
     {
       Enrollment joinEntry = _db.Enrollments.FirstOrDefault(entry => entry.EnrollmentId == id);
       _db.Enrollments.Remove(joinEntry);

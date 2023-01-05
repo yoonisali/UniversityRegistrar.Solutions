@@ -41,7 +41,7 @@
       <ul>
         @foreach (Enrollment join in Model.JoinEntities)
         {
-          <li>@Html.ActionLink($"{@join.Course.Name}", "DeleteCourseStudent", new { id = @join.Course.CourseId }, new { style = "color: red" })</li>
+          <li>@Html.ActionLink($"{@join.Course.Name}", "DeleteEnrollment", new { id = @join.Course.CourseId }, new { style = "color: red" })</li>
         }
       </ul>
       <br>
