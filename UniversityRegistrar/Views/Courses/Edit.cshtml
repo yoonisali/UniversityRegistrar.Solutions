@@ -1,0 +1,46 @@
+@{
+  Layout = "_Layout";
+}
+@await Html.PartialAsync("Footer")
+
+@model UniversityRegistrar.Models.Course;
+@using UniversityRegistrar.Models;
+
+<h2 style="text-align: center;">Course Details</h2>
+<hr>
+<div style="text-align: center;">
+
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.CourseId)
+    @Html.TextBoxFor(model => model.Name, new { placeholder = "Name", style = "text-align: center;"})<br><br>
+    @Html.TextBoxFor(model => model.Number, new { placeholder = "Number", style = "text-align: center;"})<br><br>
+    <input type="submit" value="Edit" class="btn btn-warning" />
+  }
+</div>
+</div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-6">
+    <h4>This course has the following majors:</h4>
+    <h6>(Click link to delete)</h6>
+    <ul>
+      @foreach (MajorCourse join in Model.MajorCourses)
+      {
+        <li>@Html.ActionLink($"{@join.Major.Name}", "DeleteMajorCourse", "Majors", new {id = @join.Major.MajorId}, new {
+        style = "color: red" })</li>
+      }
+    </ul>
+  </div>
+  <div class="col-6">
+    <h4>Students enrolled in this course:</h5>
+      <h6>(Click link to delete)</h6>
+      @foreach (Enrollment student in Model.JoinEntities)
+      {
+        <ul>
+          <li>@Html.ActionLink($"{student.Student.Name}", "DeleteStudentCourse", "Students", new { id = student.Student.StudentId }, new { style = "color: red" })</li>
+        </ul>
+      }
+  </div>
+</div>

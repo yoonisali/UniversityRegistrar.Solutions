@@ -8,8 +8,16 @@
 
 <h2 style="text-align: center;">Course Details</h2>
 <hr>
-<h4><strong>Name: </strong>@Html.DisplayFor(model => model.Name)</h4>
-<h4><strong>Course Number: </strong>@Html.DisplayFor(model => model.Number)</h4>
+
+<div class="row">
+  <div class="col-6">
+    <h4><strong>Name: </strong>@Html.DisplayFor(model => model.Name)</h4>
+    <h4><strong>Course Number: </strong>@Html.DisplayFor(model => model.Number)</h4>
+  </div>
+  <div class="col-6">
+    <a href="/courses/@Model.CourseId/edit" class="btn btn-primary">Edit</a>
+  </div>
+</div>
 <hr>
 <div class="row">
   <div class="col-6">
@@ -33,7 +41,6 @@
     @if (@Model.JoinEntities.Count == 0)
     {
       <p>This course has no students enrolled.</p>
-      <p>@Html.ActionLink("Add a new student!", "Create", "Students")</p>
     }
     else
     {

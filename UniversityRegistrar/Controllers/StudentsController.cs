@@ -87,5 +87,63 @@ namespace UniversityRegistrar.Controllers
       }
       return RedirectToAction("Details", new { id = student.StudentId });
     }
+
+    [HttpGet("/students/{id}/edit")]
+    public ActionResult Edit(int id)
+    {
+      Student thisStudent = _db.Students
+                              .Include(student => student.JoinEntities)
+                              .ThenInclude(join => join.Course)
+                              .Include(student => student.MajorStudents)
+                              .ThenInclude(join => join.Major)
+                              .FirstOrDefault(student => student.StudentId == id);
+      return View(thisStudent);
+    }
+
+    [HttpPost("/students/{id}/edit")]
+    public ActionResult Edit(Student student)
+    {
+      _db.Students.Update(student);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = student.StudentId });
+    }
+
+    public ActionResult DeleteMajorStudent(int id)
+    {
+      MajorStudent joinEntry = _db.MajorStudents.FirstOrDefault(entry => entry.MajorStudentId == id);
+      Major thisMajor = _db.Majors.FirstOrDefault(entry => entry.MajorId == joinEntry.MajorId);
+      ViewBag.Major = thisMajor.Name;
+      return View(joinEntry);
+    }
+
+    [HttpPost, ActionName("DeleteMajorStudent")]
+    public ActionResult DeleteMajorStudentConfirm(int id)
+    {
+      MajorStudent joinEntry = _db.MajorStudents.FirstOrDefault(entry => entry.MajorStudentId == id);
+      _db.MajorStudents.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.StudentId });
+    }
+    //------------------------------------------------------------------------------------------------------
+    public ActionResult DeleteCourseStudent(int id)
+    {
+      Enrollment joinEntry = _db.Enrollments.FirstOrDefault(entry => entry.EnrollmentId == id);
+      Course thisCourse = _db.Courses.FirstOrDefault(entry => entry.CourseId == joinEntry.CourseId);
+      ViewBag.Course = thisCourse.Name;
+      return View(joinEntry);
+    }
+
+    [HttpPost, ActionName("DeleteCourseStudent")]
+    public ActionResult DeleteCourseStudentConfirm(int id)
+    {
+      Enrollment joinEntry = _db.Enrollments.FirstOrDefault(entry => entry.EnrollmentId == id);
+      _db.Enrollments.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.StudentId });
+    }
+
+
+
+
   }
 }

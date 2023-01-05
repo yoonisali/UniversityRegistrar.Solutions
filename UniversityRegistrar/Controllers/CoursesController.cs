@@ -67,5 +67,25 @@ namespace UniversityRegistrar.Controllers
       }
       return RedirectToAction("Details", new { id = course.CourseId });
     }
+
+    [HttpGet("/courses/{id}/edit")]
+    public ActionResult Edit(int id)
+    {
+      Course thisCourse = _db.Courses
+                              .Include(course => course.JoinEntities)
+                              .ThenInclude(join => join.Student)
+                              .Include(course => course.MajorCourses)
+                              .ThenInclude(join => join.Major)
+                              .FirstOrDefault(course => course.CourseId == id);
+      return View(thisCourse);
+    }
+
+    [HttpPost("/courses/{id}/edit")]
+    public ActionResult Edit(Course course)
+    {
+      _db.Courses.Update(course);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = course.CourseId });
+    }
   }
 }

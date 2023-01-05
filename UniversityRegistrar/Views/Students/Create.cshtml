@@ -11,10 +11,7 @@
 
 @using (Html.BeginForm())
 {
-  
   @Html.TextBoxFor(model => model.Name, new { placeholder = "Name", style = "text-align: center;"})<br><br>
   @Html.TextBoxFor(model => model.EnrollmentDate, new { placeholder = "Enrollment Date", style = "text-align: center;"})<br><br>
-
-  
-<input type="submit" value="Add a new student!" class="btn btn-success" />
+  <input type="submit" value="Add a new student!" class="btn btn-success" />
 }

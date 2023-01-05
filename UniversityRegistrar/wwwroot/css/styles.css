@@ -1,6 +1,6 @@
 .jumbotron {
   text-align: center;
-  background-color: rgb(104, 184, 139);
+  background-color: rgb(35, 109, 67);
 }
 
 #jumbotron {
@@ -25,3 +25,6 @@ div#footer {
   float: center;
 }
 
+body {
+  background-color: lavender;
+}
