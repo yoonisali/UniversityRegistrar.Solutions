@@ -6,26 +6,45 @@
 @model UniversityRegistrar.Models.Course;
 @using UniversityRegistrar.Models;
 
-
-<h3>Course Details:</h3>
+<h2 style="text-align: center;">Course Details</h2>
 <hr>
 <h4><strong>Name: </strong>@Html.DisplayFor(model => model.Name)</h4>
 <h4><strong>Course Number: </strong>@Html.DisplayFor(model => model.Number)</h4>
 <hr>
-
-@if(@Model.JoinEntities.Count == 0)
-{
-  <p>This course has no students enrolled.</p>
-}
-else 
-{
-  <h5>Students enrolled in this course:</h5>
-  @foreach (Enrollment student in Model.JoinEntities)
-  {
-  <ul>
-    <li>@student.Student.Name</li>
-  </ul>
-  }
-}
-
-
+<div class="row">
+  <div class="col-6">
+    @if (@Model.MajorCourses.Count == 0)
+    {
+      <p>This course does not have any majors yet!</p>
+    }
+    else
+    {
+      <h4>This course has the following majors:</h4>
+      <ul>
+        @foreach (MajorCourse join in Model.MajorCourses)
+        {
+          <li>@Html.ActionLink($"{@join.Major.Name}", "Details", "Majors", new {id = @join.Major.MajorId})</li>
+        }
+      </ul>
+    }
+    <p>@Html.ActionLink("Add a major", "AddMajor", new { id = Model.CourseId })</p>
+  </div>
+  <div class="col-6">
+    @if (@Model.JoinEntities.Count == 0)
+    {
+      <p>This course has no students enrolled.</p>
+      <p>@Html.ActionLink("Add a new student!", "Create", "Students")</p>
+    }
+    else
+    {
+      <h5>Students enrolled in this course:</h5>
+      @foreach (Enrollment student in Model.JoinEntities)
+      {
+        <ul>
+          <li>@Html.ActionLink($"{student.Student.Name}", "Details", "Students", new { id = student.Student.StudentId })
+          </li>
+        </ul>
+      }
+    }
+  </div>
+</div>

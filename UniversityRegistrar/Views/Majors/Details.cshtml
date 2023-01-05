@@ -1,0 +1,49 @@
+@{
+  Layout = "_Layout";
+}
+@await Html.PartialAsync("Footer")
+
+@model UniversityRegistrar.Models.Major;
+@using UniversityRegistrar.Models;
+
+
+<h2 style="text-align: center;">Major Details</h2>
+<hr>
+<h4><strong>Name: </strong>@Html.DisplayFor(model => model.Name)</h4>
+<hr>
+
+<div class="row">
+  <div class="col-6">
+    @if (@Model.MajorCourses.Count == 0)
+    {
+      <p>This major has no courses.</p>
+    }
+    else
+    {
+      <h5>Courses in this major:</h5>
+      @foreach (MajorCourse course in Model.MajorCourses)
+      {
+        <ul>
+          <li>@Html.ActionLink($"{course.Course.Name}", "Details", "Courses", new {id = course.Course.CourseId})</li>
+          
+        </ul>
+      }
+    }
+  </div>
+  <div class="col-6">
+    @if (@Model.MajorStudents.Count == 0)
+    {
+      <p>This major has no students.</p>
+    }
+    else
+    {
+      <h5>Students with this major:</h5>
+      @foreach (MajorStudent student in Model.MajorStudents)
+      {
+        <ul>
+          <li>@Html.ActionLink($"{student.Student.Name}", "Details", "Students", new { id = student.Student.StudentId })</li>
+        </ul>
+      }
+    }
+  </div>
+</div>

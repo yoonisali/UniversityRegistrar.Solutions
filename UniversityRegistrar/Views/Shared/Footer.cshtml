@@ -1,11 +1,14 @@
 <div id="footer" class="row">
-  <div class="col-4" style="text-align: center;">
+  <div class="col-3" style="text-align: center;">
   @Html.ActionLink("Home!", "Index", "Home", new {})
   </div>
-  <div class="col-4" style="text-align: center;">
-  @Html.ActionLink("See all courses!", "Index", "Courses", new { id = "courses" }) 
+  <div class="col-3" style="text-align: center;">
+  <p>@Html.ActionLink("Majors!", "Index", "Majors")</p>  
   </div>
-  <div class="col-4" style="text-align: center;">
-  @Html.ActionLink("See all students!", "Index", "Students", new { id = "students" })
+  <div class="col-3" style="text-align: center;">
+  @Html.ActionLink("Courses!", "Index", "Courses") 
+  </div>
+  <div class="col-3" style="text-align: center;">
+  @Html.ActionLink("Students!", "Index", "Students")
   </div>
 </div>

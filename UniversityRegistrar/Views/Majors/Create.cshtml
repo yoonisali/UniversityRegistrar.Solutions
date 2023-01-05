@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+@await Html.PartialAsync("Footer")
+
+@model UniversityRegistrar.Models.Major
+
+<h4>Add a new major</h4>
+<hr >
+@using (Html.BeginForm())
+{
+ 
+  @Html.TextBoxFor(model => model.Name, new { placeholder = "Name", style = "text-align: center;"})<br><br>
+  <input type="submit" value="Add new major" class="btn btn-success" />
+}

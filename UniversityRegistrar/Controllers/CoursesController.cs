@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using UniversityRegistrar.Models;
@@ -39,9 +40,32 @@ namespace UniversityRegistrar.Controllers
       Course thisCourse = _db.Courses
                               .Include(course => course.JoinEntities)
                               .ThenInclude(join => join.Student)
+                              .Include(course => course.MajorCourses)
+                              .ThenInclude(join => join.Major)
+
                               .FirstOrDefault(course => course.CourseId == id);
       return View(thisCourse);
     }
 
+    public ActionResult AddMajor(int id)
+    {
+      Course thisCourse = _db.Courses.FirstOrDefault(courses => courses.CourseId == id);
+      ViewBag.MajorId = new SelectList(_db.Majors, "MajorId", "Name");
+      return View(thisCourse);
+    }
+
+    [HttpPost]
+    public ActionResult AddMajor(Course course, int majorId)
+    {
+#nullable enable
+      MajorCourse? joinEntity = _db.MajorCourses.FirstOrDefault(join => (join.MajorId == majorId && join.CourseId == course.CourseId));
+#nullable disable
+      if (joinEntity == null && majorId != 0)
+      {
+        _db.MajorCourses.Add(new MajorCourse() { MajorId = majorId, CourseId = course.CourseId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = course.CourseId });
     }
   }
+}

@@ -5,7 +5,7 @@ namespace UniversityRegistrar.Models
     public int StudentId { get; set; }
     public string Name { get; set; }
     public string EnrollmentDate { get; set; }
-
     public List<Enrollment> JoinEntities { get; }
+    public List<MajorStudent> MajorStudents { get; }
   }
 }

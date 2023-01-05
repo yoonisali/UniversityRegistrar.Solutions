@@ -2,7 +2,15 @@
   Layout = "_Layout";
 }
 
-
-<h3>Welcome to the University Registrar!</h1>
-<p>@Html.ActionLink("See all courses!", "Index", "Courses")</p> 
-<p>@Html.ActionLink("See all students!", "Index", "Students")</p> 
+<h3 style="text-align: center;">Welcome to the University Registrar!</h1>
+  <div class="row" style="padding-top: 5%;">
+    <div class="col-4" style="text-align: center;">
+      <p>@Html.ActionLink("See all majors!", "Index", "Majors")</p>
+    </div>
+    <div class="col-4" style="text-align: center;">
+      <p>@Html.ActionLink("See all courses!", "Index", "Courses")</p>
+    </div>
+    <div class="col-4" style="text-align: center;">
+      <p>@Html.ActionLink("See all students!", "Index", "Students")</p>
+    </div>
+  </div>
