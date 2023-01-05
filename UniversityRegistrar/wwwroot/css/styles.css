@@ -27,4 +27,21 @@ div#footer {
 
 body {
   background-color: lavender;
+  
+
+}
+
+.castle {
+  border: 14px solid rgb(35, 109, 67);
+  height: 400px;
+  width: 700px;
+
+}
+
+.img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  padding-top: 40px;
 }
