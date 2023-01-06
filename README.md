@@ -27,6 +27,13 @@
   }
 }
 ```
+* _run dotnet commands below in UniversityRegistrar_
+```
+dotnet restore
+```
+```
+dotnet ef database update
+```
 
 ## Known Bugs
 
